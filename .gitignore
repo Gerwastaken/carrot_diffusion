@@ -7,6 +7,7 @@ data_local
 .vscode
 _wandb
 DATA
+checkpoints
 
 **/.DS_Store
 

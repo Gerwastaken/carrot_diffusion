@@ -2,6 +2,7 @@
 Usage:
 (robodiff)$ python eval_real_robot_carrot.py -i <ckpt_path> -o <save_dir> --robot_ip <ip_of_flexiv> --camera_serials <serial1> <serial2> ...
 
+
 ================ Policy in control ==============
 Make sure you can hit the robot hardware emergency-stop button quickly! 
 
