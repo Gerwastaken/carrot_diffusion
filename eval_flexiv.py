@@ -38,7 +38,7 @@ OmegaConf.register_new_resolver("eval", eval, replace=True)
 @click.option('--camera_serials', '-cs', multiple=True, default=['135122075425'], help="RealSense serial numbers")
 @click.option('--vis_camera_idx', default=0, type=int, help="Which camera index to visualize.")
 @click.option('--steps_per_inference', '-si', default=6, type=int, help="Action horizon for inference.")
-@click.option('--max_duration', '-md', default=60, help='Max duration for each epoch in seconds.')
+@click.option('--max_duration', '-md', default=40, help='Max duration for each epoch in seconds.')
 @click.option('--frequency', '-f', default=30, type=float, help="Control frequency in Hz.")
 def main(input, output, robot_ip, camera_serials, vis_camera_idx,
          steps_per_inference, max_duration, frequency):
@@ -218,19 +218,19 @@ def main(input, output, robot_ip, camera_serials, vis_camera_idx,
                     print('Terminated by timeout.')
 
                 # 终止区域判断（示例，需根据实际任务定义）
-                term_pose = np.array([0.34, 0.22, 0.045, 2.22, -2.22, -0.0004, 0.0])  # 位置+四元数
-                curr_pos = tcp_pose[:3]
-                term_pos = term_pose[:3]
-                dist = np.linalg.norm(curr_pos - term_pos)
-                if dist < 0.03:
-                    curr_time = time.time()
-                    if term_area_start_timestamp == float('inf'):
-                        term_area_start_timestamp = curr_time
-                    elif curr_time - term_area_start_timestamp > 0.5:
-                        terminate = True
-                        print('Terminated by reaching goal area.')
-                else:
-                    term_area_start_timestamp = float('inf')
+                # term_pose = np.array([0.34, 0.22, 0.045, 2.22, -2.22, -0.0004, 0.0])  # 位置+四元数
+                # curr_pos = tcp_pose[:3]
+                # term_pos = term_pose[:3]
+                # dist = np.linalg.norm(curr_pos - term_pos)
+                # if dist < 0.03:
+                #     curr_time = time.time()
+                #     if term_area_start_timestamp == float('inf'):
+                #         term_area_start_timestamp = curr_time
+                #     elif curr_time - term_area_start_timestamp > 0.5:
+                #         terminate = True
+                #         print('Terminated by reaching goal area.')
+                # else:
+                #     term_area_start_timestamp = float('inf')
 
                 if terminate:
                     break
