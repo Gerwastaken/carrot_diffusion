@@ -248,6 +248,13 @@ def main(input, output, robot_ip, camera_serials, vis_camera_idx,
     except KeyboardInterrupt:
         print("Interrupted by user.")
     finally:
+        print("Returning to ready pose...")
+        try:
+            # 使用慢速移动，并让出足够时间完成动作
+            agent.set_tcp_pose(agent.ready_pose, rotation_rep='quaternion', slow=True)
+            time.sleep(3)   # 等待机器人移动就位（根据实际运动时间调整）
+        except Exception as e:
+            print(f"Error returning to ready pose: {e}")
         agent.stop()
         cv2.destroyAllWindows()
         print("Robot stopped, exit.")
